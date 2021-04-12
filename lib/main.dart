@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'mainview_config.dart';
 
 void main() {
   runApp(Appdemo());
@@ -12,13 +13,23 @@ class Appdemo extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.orange,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Home"),
-        ),
-        body: HomeDemo(),
-      ),
-      
+      home: DYMainViewConfig()
+        // length: 3,
+        // child: DYMainViewConfig(),
+        // child: Scaffold(
+        //   appBar: AppBar(
+        //     title: Text("电影列表"),
+        //     actions: [
+        //       IconButton(icon: Icon(Icons.search), onPressed: () {}),
+        //     ],
+        //   ),
+        //   drawer: Drawer(
+        //     child: DYFilmDrawer(),
+        //   ),
+        //   // body: DYWidgetOptions(selectedIndex),
+        //   // bottomNavigationBar: DYBottomNavigationBarItem(selectedIndex)
+        // ),
+      // ),
     );
   }
 }
@@ -28,20 +39,21 @@ class HomeDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10),
-      child: ListView( 
+      child: ListView(
         children: [
-          ProductItem("Apple1", "Macbook Product1", "https://tva1.sinaimg.cn/large/006y8mN6gy1g72j6nk1d4j30u00k0n0j.jpg"),
-          ProductItem("Apple2", "Macbook Product2", "https://tva1.sinaimg.cn/large/006y8mN6gy1g72imm9u5zj30u00k0adf.jpg"),
-          ProductItem("Apple3", "Macbook Product3", "https://tva1.sinaimg.cn/large/006y8mN6gy1g72imqlouhj30u00k00v0.jpg"),
+          ProductItem("Apple1", "Macbook Product1",
+              "https://tva1.sinaimg.cn/large/006y8mN6gy1g72j6nk1d4j30u00k0n0j.jpg"),
+          ProductItem("Apple2", "Macbook Product2",
+              "https://tva1.sinaimg.cn/large/006y8mN6gy1g72imm9u5zj30u00k0adf.jpg"),
+          ProductItem("Apple3", "Macbook Product3",
+              "https://tva1.sinaimg.cn/large/006y8mN6gy1g72imqlouhj30u00k00v0.jpg"),
         ],
       ),
     );
   }
 }
 
-
 class ProductItem extends StatelessWidget {
-
   final String title;
   final String subTilte;
   final String imageUrl;
@@ -53,10 +65,14 @@ class ProductItem extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(title, style: TextStyle(fontSize: 20, color: Theme.of(context).accentColor)),
-        Text(subTilte, style: TextStyle(fontSize: 16, color: Theme.of(context).accentColor)),
-        SizedBox(height:15.0),
-        Image.network(imageUrl, fit:BoxFit.cover),
+        Text(title,
+            style:
+                TextStyle(fontSize: 20, color: Theme.of(context).accentColor)),
+        Text(subTilte,
+            style:
+                TextStyle(fontSize: 16, color: Theme.of(context).accentColor)),
+        SizedBox(height: 15.0),
+        Image.network(imageUrl, fit: BoxFit.cover),
       ],
     );
   }
