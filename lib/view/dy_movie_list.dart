@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_film/model/dy_film_list_model.dart';
 import 'package:flutter_film/view/dy_film_detail.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,13 +12,16 @@ class DYMovieList extends StatefulWidget {
 
   @override
   _DYMovieListState createState() {
+    
     return new _DYMovieListState();
   }
 }
 
 class _DYMovieListState extends State<DYMovieList> {
+
+  List films = [];
   int page = 1;
-  int size = 10;
+  int size = 1;
   var mlist = [];
   var total = 0;
 
@@ -25,7 +29,7 @@ class _DYMovieListState extends State<DYMovieList> {
   void initState() {
     super.initState();
     getMovieList();
-    print("object");
+    print("电影类型：${widget.type}");
   }
 
   @override
@@ -37,17 +41,27 @@ class _DYMovieListState extends State<DYMovieList> {
           return GestureDetector(
             onTap: (){
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (BuildContext context) => DYFilmDetail(item["title"], item["id"])),
+                MaterialPageRoute(builder: (BuildContext context) => DYFilmDetail(item["casts"], item["id"])),
               );
             },
             child: Container(
-                padding: EdgeInsets.all(50), child: Text(item["title"])),
+              height: 180,
+              width: 130,
+              padding: EdgeInsets.all(10), 
+              child: Row(
+                children: [
+                  Container(
+                    child: Image(image: NetworkImage(item["images"]["small"]), fit: BoxFit.cover)
+                  ),
+                ],
+              ),
+            ),
           );
         });
   }
 
   getMovieList() async {
-    print(widget.type);
+    // print("电影类型：${widget.type}");
     switch (widget.type) {
       case "in_theaters":
         page = 1;
@@ -70,15 +84,40 @@ class _DYMovieListState extends State<DYMovieList> {
           "http://www.liulongbin.top:3005/api/v2/movie/${widget.type}?start=${offset}&count=${size}";
       var response = await Dio().get(urlStr);
       var result = response.data;
-      // print(result);
-      setState(() {
-        mlist = result["subjects"];
-        total = result["total"];
-      });
+      for (var film in result["subjects"]) {
+        print(film);
+        films.add(Subjects.fromMap(film));
+      }
+      print("数组长度: ${films.length}");
+      for (Subjects item in films) {
+
+        print("${item.title}, ${item.id}, ${item.images.medium}, ${item.casts[0].avatars.small}, ${item.directors[0].avatars.small}");
+      }
+      // print();
+      // setState(() {
+      //   mlist = result["subjects"];
+      //   total = result["total"];
+      // });
     } catch (e) {
       print(e);
     }
   }
 }
 
-class DYMovieItem {}
+
+class DYImagePicker extends StatefulWidget {
+  @override
+  _DYImagePickerState createState() => _DYImagePickerState();
+}
+
+class _DYImagePickerState extends State<DYImagePicker> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
+
+
+
+

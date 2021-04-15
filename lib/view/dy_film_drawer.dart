@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class DYFilmDrawer extends StatefulWidget {
   @override
@@ -6,6 +8,23 @@ class DYFilmDrawer extends StatefulWidget {
 }
 
 class _DYFilmDrawerState extends State<DYFilmDrawer> {
+
+
+  File _image;
+  final picker = ImagePicker();
+
+  Future getImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -27,7 +46,7 @@ class _DYFilmDrawerState extends State<DYFilmDrawer> {
         ListTile(
           title: Text("用户反馈"), 
           trailing: Icon(Icons.feedback),
-          onTap: (){},
+          onTap: getImage,
         ),
         ListTile(
           title: Text("系统设置"), 

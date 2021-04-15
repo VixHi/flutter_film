@@ -8,7 +8,6 @@ void main() {
 class Appdemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print("object");
     return MaterialApp(
       theme: ThemeData(
         primaryColor: Colors.orange,
