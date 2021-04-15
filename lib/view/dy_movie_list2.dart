@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_film/model/dy_film_list_model.dart';
 import 'package:flutter_film/view/dy_film_detail.dart';
 import 'package:http/http.dart' as http;
 
@@ -16,33 +17,41 @@ class DYMovieList2 extends StatefulWidget {
 }
 
 class _DYMovieList2State extends State<DYMovieList2> {
+ List<Subjects> films = [];
   int page = 1;
   int size = 10;
-  var mlist = [];
-  var total = 0;
 
   @override
   void initState() {
     super.initState();
     getMovieList();
     print("电影类型：${widget.type}");
-
   }
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: mlist.length,
+        itemCount: films.length,
         itemBuilder: (BuildContext context, int index) {
-          var item = mlist[index];
+          Subjects item = films[index];
           return GestureDetector(
             onTap: (){
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (BuildContext context) => DYFilmDetail(item["title"], item["id"])),
+                MaterialPageRoute(builder: (BuildContext context) => DYFilmDetail(item.title, item.id)),
               );
             },
             child: Container(
-                padding: EdgeInsets.all(50), child: Text(item["title"])),
+              height: 180,
+              width: 130,
+              padding: EdgeInsets.all(10), 
+              child: Row(
+                children: [
+                  Container(
+                    child: Image(image: NetworkImage(item.images.small), fit: BoxFit.cover)
+                  ),
+                ],
+              ),
+            ),
           );
         });
   }
@@ -71,15 +80,16 @@ class _DYMovieList2State extends State<DYMovieList2> {
           "http://www.liulongbin.top:3005/api/v2/movie/${widget.type}?start=${offset}&count=${size}";
       var response = await Dio().get(urlStr);
       var result = response.data;
-      print(result);
       setState(() {
-        mlist = result["subjects"];
-        total = result["total"];
+        for (var film in result["subjects"]) {
+          films.add(Subjects.fromMap(film));
+        }
       });
+      for (Subjects item in films) {
+        print(item.images.small);
+      }
     } catch (e) {
       print(e);
     }
   }
 }
-
-class DYMovieItem {}

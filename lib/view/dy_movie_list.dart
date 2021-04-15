@@ -12,18 +12,15 @@ class DYMovieList extends StatefulWidget {
 
   @override
   _DYMovieListState createState() {
-    
+    print("---------------");
     return new _DYMovieListState();
   }
 }
 
 class _DYMovieListState extends State<DYMovieList> {
-
-  List films = [];
+  List<Subjects> films = [];
   int page = 1;
-  int size = 1;
-  var mlist = [];
-  var total = 0;
+  int size = 10;
 
   @override
   void initState() {
@@ -35,23 +32,23 @@ class _DYMovieListState extends State<DYMovieList> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: mlist.length,
+        itemCount: films.length,
         itemBuilder: (BuildContext context, int index) {
-          var item = mlist[index];
+          Subjects item = films[index];
           return GestureDetector(
             onTap: (){
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (BuildContext context) => DYFilmDetail(item["casts"], item["id"])),
+                MaterialPageRoute(builder: (BuildContext context) => DYFilmDetail(item.title, item.id)),
               );
             },
             child: Container(
               height: 180,
               width: 130,
-              padding: EdgeInsets.all(10), 
+              padding: EdgeInsets.all(10),
               child: Row(
                 children: [
                   Container(
-                    child: Image(image: NetworkImage(item["images"]["small"]), fit: BoxFit.cover)
+                      child: Image(image: NetworkImage(item.images.small), fit: BoxFit.cover)
                   ),
                 ],
               ),
@@ -84,20 +81,14 @@ class _DYMovieListState extends State<DYMovieList> {
           "http://www.liulongbin.top:3005/api/v2/movie/${widget.type}?start=${offset}&count=${size}";
       var response = await Dio().get(urlStr);
       var result = response.data;
-      for (var film in result["subjects"]) {
-        print(film);
-        films.add(Subjects.fromMap(film));
-      }
-      print("数组长度: ${films.length}");
+      setState(() {
+        for (var film in result["subjects"]) {
+          films.add(Subjects.fromMap(film));
+        }
+      });
       for (Subjects item in films) {
-
-        print("${item.title}, ${item.id}, ${item.images.medium}, ${item.casts[0].avatars.small}, ${item.directors[0].avatars.small}");
+        print(item.images.small);
       }
-      // print();
-      // setState(() {
-      //   mlist = result["subjects"];
-      //   total = result["total"];
-      // });
     } catch (e) {
       print(e);
     }
@@ -120,4 +111,4 @@ class _DYImagePickerState extends State<DYImagePicker> {
 
 
 
-
+class DYMovieItem {}

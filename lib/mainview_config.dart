@@ -21,7 +21,7 @@ class _DYMainViewConfigState extends State<DYMainViewConfig> {
     DYMovieList(type: "coming_soon"),
     DYMovieList2(type: "top250"),
     // new
-
+    // 
   ];
 
   @override

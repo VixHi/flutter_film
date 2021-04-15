@@ -1,6 +1,3 @@
-import 'package:flutter/material.dart';
-
-
 class DYFilmListModel {
   var count;
   var start;
@@ -14,7 +11,6 @@ class DYFilmListModel {
     this.total    = json["total"],
     this.title    = json["total"],
     this.subjects = Subjects.fromMap(json["subjects"]);
-
 }
 
 class Subjects {
@@ -31,8 +27,8 @@ class Subjects {
   List<Casts> casts;
   List<Directors> directors;
   Subjects.fromMap(Map<String, dynamic>json):
-    this.title    = json["title"],
-    this.collect_count = json["collect_count"],
+    this.title            = json["title"],
+    this.collect_count    = json["collect_count"],
     this.original_title   = json["original_title"],
     this.subtype          = json["subtype"],
     this.year             = json["year"],
@@ -102,87 +98,3 @@ class Images {
     this.large    = json["large"],
     this.medium   = json["medium"];
 }
-
-
-
-/*
-
-{
-"count":1,
-"start":1,
-"total":250,
-"subjects":[
-{
-"rating":{
-"max":10,
-"average":9.5,
-"stars":"50",
-"min":0
-},
-"genres":[
-"剧情",
-"爱情",
-"同性"
-],
-"title":"霸王别姬",
-"casts":[
-{
-"alt":"https://movie.douban.com/celebrity/1003494/",
-"avatars":{
-"small":"https://img1.doubanio.com/view/celebrity/s_ratio_celebrity/public/p67.webp",
-"large":"https://img1.doubanio.com/view/celebrity/s_ratio_celebrity/public/p67.webp",
-"medium":"https://img1.doubanio.com/view/celebrity/s_ratio_celebrity/public/p67.webp"
-},
-"name":"张国荣",
-"id":"1003494"
-},
-{
-"alt":"https://movie.douban.com/celebrity/1050265/",
-"avatars":{
-"small":"https://img3.doubanio.com/view/celebrity/s_ratio_celebrity/public/p46345.webp",
-"large":"https://img3.doubanio.com/view/celebrity/s_ratio_celebrity/public/p46345.webp",
-"medium":"https://img3.doubanio.com/view/celebrity/s_ratio_celebrity/public/p46345.webp"
-},
-"name":"张丰毅",
-"id":"1050265"
-},
-{
-"alt":"https://movie.douban.com/celebrity/1035641/",
-"avatars":{
-"small":"https://img1.doubanio.com/view/celebrity/s_ratio_celebrity/public/p1399268395.47.webp",
-"large":"https://img1.doubanio.com/view/celebrity/s_ratio_celebrity/public/p1399268395.47.webp",
-"medium":"https://img1.doubanio.com/view/celebrity/s_ratio_celebrity/public/p1399268395.47.webp"
-},
-"name":"巩俐",
-"id":"1035641"
-}
-],
-"collect_count":898862,
-"original_title":"霸王别姬",
-"subtype":"movie",
-"directors":[
-{
-"alt":"https://movie.douban.com/celebrity/1023040/",
-"avatars":{
-"small":"https://img3.doubanio.com/view/celebrity/s_ratio_celebrity/public/p1451727734.81.webp",
-"large":"https://img3.doubanio.com/view/celebrity/s_ratio_celebrity/public/p1451727734.81.webp",
-"medium":"https://img3.doubanio.com/view/celebrity/s_ratio_celebrity/public/p1451727734.81.webp"
-},
-"name":"陈凯歌",
-"id":"1023040"
-}
-],
-"year":"1993",
-"images":{
-"small":"https://img3.doubanio.com/view/photo/s_ratio_poster/public/p1910813120.webp",
-"large":"https://img3.doubanio.com/view/photo/s_ratio_poster/public/p1910813120.webp",
-"medium":"https://img3.doubanio.com/view/photo/s_ratio_poster/public/p1910813120.webp"
-},
-"alt":"https://movie.douban.com/subject/1291546/",
-"id":"1291546"
-}
-],
-"title":"豆瓣电影Top250"
-}
-
-*/
