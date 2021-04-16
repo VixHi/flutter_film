@@ -50,6 +50,16 @@ class _DYMovieListState extends State<DYMovieList> {
                   Container(
                       child: Image(image: NetworkImage(item.images.small), fit: BoxFit.cover)
                   ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("电影名称：${item.title}", textDirection: TextDirection.ltr, style: TextStyle(fontSize: 20)),
+                      Text("上映年份：${item.year}", textDirection: TextDirection.ltr, style: TextStyle(fontSize: 20)),
+                      Text("电影类型：${item.genres.toString()}", textDirection: TextDirection.ltr, style: TextStyle(fontSize: 20)),
+                      Text("豆瓣评分：${item.rating.average}", textDirection: TextDirection.ltr, style: TextStyle(fontSize: 20)),
+                      // Text(item.title, textDirection: TextDirection.ltr, style: TextStyle(fontSize: 20)),
+                    ],
+                  ),
                 ],
               ),
             ),
